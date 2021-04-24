@@ -38,6 +38,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
+
+    public function posts(){
+        return $this->hasMany(Post::class, 'author_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'commenter_id');
+    }
 }
