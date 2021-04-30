@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -21,9 +22,10 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+        $post = Post::factory()->create(); 
         return [
-            'post_id' => 1,
-            'commenter_id' => 1,
+            'post_id' => $post->id,
+            'commenter_id' => $post->author->id,
             'comment' => $this->faker->text(),
             'published_at' => \Carbon\Carbon::now()
         ];
