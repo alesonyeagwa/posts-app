@@ -37,4 +37,22 @@ class Comment extends Model
     public function post(){
         return $this->belongsTo(Post::class);
     }
+
+    public function scopePublished($query){
+        return $query->where('published_at', '!=', null);
+    }
+
+    /** End Scopes */
+
+
+    public function publish(){
+        if($this->published_at == null){
+            $this->published_at = \Carbon\Carbon::now();
+            $this->save();
+        }
+    }
+
+    public function isPublished(){
+        return $this->published_at !== null;
+    }
 }
